@@ -1,4 +1,4 @@
-import 'package:store_application/models/api_model.dart';
+import 'package:store_application/helper/api_model.dart';
 import 'package:store_application/models/product_model.dart';
 
 class UpdateProduct {
