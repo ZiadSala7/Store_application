@@ -8,6 +8,8 @@ import 'package:store_application/widgets/custom_text_field.dart';
 class UpdateProductPage extends StatefulWidget {
   static String id = 'update product';
 
+  const UpdateProductPage({super.key});
+
   @override
   State<UpdateProductPage> createState() => _UpdateProductPageState();
 }
@@ -89,11 +91,8 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                     setState(() {});
                     try {
                       await updateProduct(product);
-
-                      print('success');
-                    } catch (e) {
-                      print(e.toString());
-                    }
+                      // ignore: empty_catches
+                    } catch (e) {}
                     isLoading = false;
                     setState(() {});
                   },
