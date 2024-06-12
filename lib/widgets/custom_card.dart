@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:store_application/models/product_model.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({super.key});
+  final ProductModel product;
+  const CustomCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +36,11 @@ class CustomCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Happy Eid'),
+                  Text(product.title.substring(0, 10)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(r'$200'),
+                      Text(r'$' '${product.price}'),
                       IconButton(
                           onPressed: () {}, icon: const Icon(Icons.favorite))
                     ],
@@ -52,8 +54,9 @@ class CustomCard extends StatelessWidget {
           left: 100,
           top: -20,
           child: Image.network(
-            "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+            product.image,
             height: 90,
+            width: 90,
           ),
         ),
       ],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:store_application/models/product_model.dart';
+import 'package:store_application/services/get_all_products.dart';
 import 'package:store_application/widgets/custom_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -28,20 +30,36 @@ class HomePage extends StatelessWidget {
               ))
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 60, left: 10, right: 10),
-        child: GridView.builder(
-            clipBehavior: Clip.none,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 1.1,
-            ),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return const CustomCard();
-            }),
+      body: FutureBuilder<List<ProductModel>>(
+        future: GetAllProducts().getAllProducts(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<ProductModel> products = snapshot.data!;
+            return Padding(
+              padding: const EdgeInsets.only(
+                top: 30,
+              ),
+              child: GridView.builder(
+                  clipBehavior: Clip.none,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 1.1,
+                  ),
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    return CustomCard(
+                      product: products[index],
+                    );
+                  }),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
